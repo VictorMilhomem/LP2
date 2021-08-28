@@ -24,9 +24,9 @@ class MainFrame extends JFrame {
         this.setSize(640, 640);
         this.setVisible(true);
 
-        this.e1 = new Ellipse(50, 50, 150, 100, new Color(0,255,0));
-        this.e2 = new Ellipse(50, 200, 200, 100, new Color(0,0,0));
-        this.e3 = new Ellipse(50, 350, 150, 100, new Color(0,0,0));
+        this.e1 = new Ellipse(50, 50, 150, 100, new Color(0,255,0), new Color(0,255,0));
+        this.e2 = new Ellipse(50, 200, 200, 100, new Color(0,0,0), new Color(0, 255, 0));
+        this.e3 = new Ellipse(50, 350, 150, 100, new Color(0,0,0), new Color(255, 255, 255));
         
     }
 
@@ -38,10 +38,10 @@ class MainFrame extends JFrame {
         g2d.clearRect(0, 0, 640, 640);
 
         this.e1.paint(g);
-        this.e1.background(g);
+        //this.e1.background(g);
 
         this.e2.paint(g);
-        this.e2.background(g, new Color(255, 0, 0));
+        //this.e2.background(g, new Color(255, 0, 0));
         
         this.e3.paint(g); 
     }
@@ -51,14 +51,15 @@ class MainFrame extends JFrame {
 class Ellipse{
     int x, y;
     int w, h;
-    Color c;
+    Color cont, bkg;
 
-    Ellipse (int x, int y, int w, int h, Color c) {
+    Ellipse (int x, int y, int w, int h, Color cont, Color bkg) {
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
-        this.c = c;
+        this.cont = cont;
+        this.bkg = bkg;
     }
 
     void print () {
@@ -68,21 +69,11 @@ class Ellipse{
 
     public void paint (Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(this.c);
+        g2d.setColor(this.bkg);
+        g2d.fillOval(this.x, this.y, this.w, this.h);
+        g2d.setColor(this.cont);
         g2d.draw(new Ellipse2D.Double(this.x,this.y, this.w,this.h));
     }
 
-    public void background(Graphics g, Color c)
-    {
-        Graphics2D g2d = (Graphics2D) g;
-        this.c = c;
-        g2d.fillOval(this.x, this.y, this.w, this.h);
-    }
 
-    public void background(Graphics g)
-    {
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(this.c);
-        g2d.fillOval(this.x, this.y, this.w, this.h);
-    }
 }
