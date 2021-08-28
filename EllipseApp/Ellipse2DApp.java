@@ -75,7 +75,7 @@ class Ellipse{
     public void background(Graphics g, Color c)
     {
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(c);
+        this.c = c;
         g2d.fillOval(this.x, this.y, this.w, this.h);
     }
 
