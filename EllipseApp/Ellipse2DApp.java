@@ -26,7 +26,7 @@ class MainFrame extends JFrame {
 
         this.e1 = new Ellipse(50, 50, 150, 100, new Color(0,255,0));
         this.e2 = new Ellipse(50, 200, 200, 100, new Color(0,0,0));
-        this.e3 = new Ellipse(50, 350, 150, 100, new Color(255,255,0));
+        this.e3 = new Ellipse(50, 350, 150, 100, new Color(0,0,0));
         
     }
 
@@ -41,10 +41,9 @@ class MainFrame extends JFrame {
         this.e1.background(g);
 
         this.e2.paint(g);
-        this.e2.background(g);
+        this.e2.background(g, new Color(255, 0, 0));
         
-        this.e3.paint(g);
-        this.e3.ellipseColor(g);        
+        this.e3.paint(g); 
     }
 }
 
@@ -67,18 +66,20 @@ class Ellipse{
             this.w, this.h, this.x, this.y);
     }
 
-    void paint (Graphics g) {
+    public void paint (Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
+        g2d.setColor(this.c);
         g2d.draw(new Ellipse2D.Double(this.x,this.y, this.w,this.h));
     }
 
-    void ellipseColor(Graphics g)
+    public void background(Graphics g, Color c)
     {
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(this.c);
+        g2d.setColor(c);
+        g2d.fillOval(this.x, this.y, this.w, this.h);
     }
 
-    void background(Graphics g)
+    public void background(Graphics g)
     {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(this.c);
