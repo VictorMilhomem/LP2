@@ -80,7 +80,6 @@ class Ellipse{
 
     void background(Graphics g)
     {
-        // TODO: Background da ellipse
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(this.c);
         g2d.fillOval(this.x, this.y, this.w, this.h);
