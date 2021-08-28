@@ -38,10 +38,8 @@ class MainFrame extends JFrame {
         g2d.clearRect(0, 0, 640, 640);
 
         this.e1.paint(g);
-        //this.e1.background(g);
 
         this.e2.paint(g);
-        //this.e2.background(g, new Color(255, 0, 0));
         
         this.e3.paint(g); 
     }
