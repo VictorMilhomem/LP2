@@ -52,6 +52,10 @@ class MainFrame extends JFrame {
                                 Triangle t = new Triangle(x, y, w, h, Color.BLACK, Color.WHITE, false);
                                 figs.add(t);
                                 break;
+                            case KeyEvent.VK_P:
+                                Pentagon p = new Pentagon(x, y, w, h, Color.BLACK, Color.WHITE, false);
+                                figs.add(p);
+                                break;
                             case KeyEvent.VK_DELETE:
                                 figs.removeIf(Figure::getSel);
                                 break;
@@ -81,7 +85,6 @@ class MainFrame extends JFrame {
                             default: break;
                         }
                         repaint();
-                        g.dispose();
                     }
                 }
         );
