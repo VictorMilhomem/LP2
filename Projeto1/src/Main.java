@@ -34,8 +34,8 @@ class MainFrame extends JFrame {
                     public void keyPressed (KeyEvent evt) {
                         int x = rand.nextInt(600);
                         int y = rand.nextInt(500);
-                        int w = 100;
-                        int h = 100;
+                        int w = 30;
+                        int h = 60;
                         Graphics g = getGraphics();
 
                         switch (evt.getKeyCode())
@@ -93,7 +93,7 @@ class MainFrame extends JFrame {
                 new MouseAdapter() {
                     public void mousePressed (MouseEvent evt) {
                         prevPt = evt.getPoint();
-                        System.out.println("prev"+prevPt); // debug
+
                         switch(evt.getButton())
                         {
                             case MouseEvent.BUTTON1: // seleciona a figura com o botão esquerdo
@@ -126,7 +126,7 @@ class MainFrame extends JFrame {
                     {
                         Graphics g = getGraphics();
                         Point currentPt = evt.getPoint();
-                        System.out.println("current"+currentPt); // debug
+
                         for (Figure fig: figs) {
                             if(fig.clicked((int)prevPt.getX(), (int)prevPt.getY()) && fig.getSel() )
                             {
