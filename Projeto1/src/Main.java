@@ -75,7 +75,7 @@ class MainFrame extends JFrame {
                             case KeyEvent.VK_F: // mudar a cor de fundo da tela
                                 JColorChooser colorChooser = new JColorChooser();
                                 BackgroundColor =
-                                        JColorChooser.showDialog(null,"Escolha a cor de fundo da tela",Color.black);
+                                        JColorChooser.showDialog(null,"Escolha a cor de fundo da tela",BackgroundColor);
                                 break;
                             default: break;
                         }
