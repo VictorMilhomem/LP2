@@ -6,8 +6,8 @@ import java.awt.geom.Ellipse2D.Double;
 
 public class Ellipse extends Figure
 {
-    public Ellipse (int x, int y, int w, int h, Color c, Color bkg, boolean selected) {
-        super(x, y, w, h, c, bkg, selected);
+    public Ellipse (int x, int y, int w, int h, Color c, Color bkg) {
+        super(x, y, w, h, c, bkg);
     }
 
     void print () {
@@ -15,10 +15,10 @@ public class Ellipse extends Figure
                 this.w, this.h, this.x, this.y);
     }
 
-    public void paint (Graphics g) {
+    public void paint(Graphics g, boolean selected) {
         Graphics2D g2d = (Graphics2D) g;
 
-        if(this.selected)
+        if(selected)
         {
             // Cor quando o objeto esta selecionado
             g2d.setPaint(Color.DARK_GRAY);

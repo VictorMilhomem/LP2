@@ -5,11 +5,10 @@ import java.awt.*;
 
 
 public abstract class Figure{
-    protected int x, y, h, w;
+    protected int x, y, h, w, id;
     protected Color c, bkg;
-    protected boolean selected;
 
-    public Figure(int x, int y, int w, int h, Color c, Color bkg, boolean selected)
+    public Figure(int x, int y, int w, int h, Color c, Color bkg)
     {
         this.x = x;
         this.y = y;
@@ -17,10 +16,9 @@ public abstract class Figure{
         this.w = w;
         this.c = c;
         this.bkg = bkg;
-        this.selected = selected;
     }
 
-    public abstract void paint(Graphics g);
+    public abstract void paint(Graphics g, boolean selected);
 
     public int getX(){
         return this.x;
@@ -49,10 +47,6 @@ public abstract class Figure{
     {
         this.bkg = newColor;
     }
-
-    // Getters e setters para o atributo selected
-    public boolean getSel(){ return this.selected; }
-    public void setSel(boolean selected){ this.selected = selected; }
 
     // Checa se a figura foi clicada
     public boolean clicked(int x, int y)

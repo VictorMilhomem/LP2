@@ -4,16 +4,16 @@ import java.awt.*;
 
 public class Rect2D extends Figure
 {
-    public Rect2D(int x, int y, int w, int h, Color c, Color bkg, boolean selected)
+    public Rect2D(int x, int y, int w, int h, Color c, Color bkg)
     {
-        super(x, y, w, h, c, bkg, selected);
+        super(x, y, w, h, c, bkg);
     }
 
-    public void paint(Graphics g)
+    public void paint(Graphics g, boolean selected)
     {
         Graphics2D g2d = (Graphics2D) g;
 
-        if(this.selected)
+        if(selected)
         {
             // Cor quando o objeto esta selecionado
             g2d.setPaint(Color.DARK_GRAY);

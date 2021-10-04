@@ -7,12 +7,12 @@ public class Triangle extends Figure
     private int[] xPoints;
     private int[] yPoints;
     Polygon pol;
-    public Triangle(int x, int y, int w, int h, Color c, Color bkg, boolean selected)
+    public Triangle(int x, int y, int w, int h, Color c, Color bkg)
     {
-        super(x, y, w, h, c, bkg, selected);
+        super(x, y, w, h, c, bkg);
     }
 
-    public void paint(Graphics g)
+    public void paint(Graphics g, boolean selected)
     {
         Graphics2D g2d = (Graphics2D) g;
 
@@ -20,7 +20,7 @@ public class Triangle extends Figure
         yPoints = new int[]{this.y, this.y+this.h, this.y+this.h};
         pol = new Polygon(xPoints, yPoints, 3);
 
-        if(this.selected)
+        if(selected)
         {
             // Cor quando o objeto esta selecionado
             g2d.setPaint(Color.DARK_GRAY);
