@@ -20,22 +20,6 @@ public abstract class Figure{
 
     public abstract void paint(Graphics g, boolean selected);
 
-    public int getX(){
-        return this.x;
-    }
-    public int getY(){
-        return this.y;
-    }
-
-    public int getWidth()
-    {
-        return this.w;
-    }
-    public int getHeight()
-    {
-        return this.h;
-    }
-
     // Foreground Color setter
     public void setForegroundColor(Color newColor)
     {

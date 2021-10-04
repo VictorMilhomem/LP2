@@ -17,10 +17,9 @@ class MainFrame extends JFrame {
     static final int WIDTH = 720;
     static final int HEIGHT = 640;
     private ArrayList<Figure> figs = new ArrayList<>();
-    Random rand = new Random();
+    private Figure selected = null;
     private Point prevPt;
     private Color BackgroundColor = Color.white;
-    private Figure selected = null;
     private Point mousePt;
 
     public MainFrame () {
@@ -98,11 +97,17 @@ class MainFrame extends JFrame {
                                     if(fig.clicked((int)prevPt.getX(), (int)prevPt.getY()))
                                     {
                                         selected = fig;
-                                        // troca a coordenada z(a ordem de desenho)
-                                        int index = figs.indexOf(fig);
-                                        int lastIndex = figs.size() - 1;
-                                        Collections.swap(figs, index, lastIndex);
                                     }
+                                }
+                                // troca a coordenada z(a ordem de desenho)
+                                int index = figs.indexOf(selected);
+                                int lastIndex = figs.size() - 1;
+                                Collections.swap(figs, index, lastIndex);
+                                break;
+                            case MouseEvent.BUTTON3:
+                                if(selected.clicked((int)prevPt.getX(), (int)prevPt.getY()))
+                                {
+                                    selected = null;
                                 }
                                 break;
                             default: break;
