@@ -100,9 +100,11 @@ class MainFrame extends JFrame {
                                     }
                                 }
                                 // troca a coordenada z(a ordem de desenho)
-                                int index = figs.indexOf(selected);
-                                int lastIndex = figs.size() - 1;
-                                Collections.swap(figs, index, lastIndex);
+                                if (selected != null){
+                                    int index = figs.indexOf(selected);
+                                    int lastIndex = figs.size() - 1;
+                                    Collections.swap(figs, index, lastIndex);
+                                }
                                 break;
                             case MouseEvent.BUTTON3:
                                 if(selected.clicked((int)prevPt.getX(), (int)prevPt.getY()))
