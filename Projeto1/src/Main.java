@@ -107,9 +107,11 @@ class MainFrame extends JFrame {
                                 }
                                 break;
                             case MouseEvent.BUTTON3:
-                                if(selected.clicked((int)prevPt.getX(), (int)prevPt.getY()))
-                                {
-                                    selected = null;
+                                if (selected != null){
+                                    if(selected.clicked((int)prevPt.getX(), (int)prevPt.getY()))
+                                    {
+                                        selected = null;
+                                    }
                                 }
                                 break;
                             default: break;
