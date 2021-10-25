@@ -73,19 +73,19 @@ typedef struct {
     int w, h;
 } Ellipse;
 
-void ellipse_print (Ellipse* this) {
+void ellipse_print (Rect* this) {
     Figure* sup = (Figure*) this;
     printf("Elipse de tamanho (%d,%d) na posicao (%d,%d) e area %d.\n",
            this->w, this->h, sup->x, sup->y, sup->vtable->area(sup));
 }
 
-int ellipse_perimeter(Ellipse* this){
+int ellipse_perimeter(Rect* this){
     Figure* sup = (Figure*) this;
     double res = pow(this->h/2, 2) + pow(this->w/2, 2);
     return (int)(2*PI * sqrt(res/2));
 }
 
-int ellipse_area (Ellipse* this) {
+int ellipse_area (Rect* this) {
     Figure* sup = (Figure*) this;
     return (int)(PI * this->w/2 * this->h/2);
 }
