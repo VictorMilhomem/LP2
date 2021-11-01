@@ -9,6 +9,11 @@ public class Rect2D extends Figure
         super(x, y, w, h, c, bkg);
     }
 
+    public Rect2D(Color c, Color bkg)
+    {
+        super(c, bkg);
+    }
+
     public void paint(Graphics g, boolean selected)
     {
         Graphics2D g2d = (Graphics2D) g;

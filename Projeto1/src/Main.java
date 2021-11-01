@@ -6,7 +6,6 @@ import java.util.Random;
 import javax.swing.*;
 import figuras.*;
 
-
 public class Main {
     public static void main (String[] args) {
         new MainFrame();
@@ -18,9 +17,12 @@ class MainFrame extends JFrame {
     static final int HEIGHT = 640;
     private ArrayList<Figure> figs = new ArrayList<>();
     private Figure selected = null;
+    private Buttons bSelected = null;
+    private int buttonIndex;
     private Point prevPt;
     private Color BackgroundColor = Color.white;
     private Point mousePt;
+    private ArrayList<Buttons> buttons = new ArrayList<>();
 
     public MainFrame () {
         this.addWindowListener (
@@ -52,25 +54,39 @@ class MainFrame extends JFrame {
                                 createFigure('p', mousePt, w, h);
                                 break;
                             case KeyEvent.VK_DELETE:
-                                figs.remove(selected);
+                                if(selected != null){
+                                    figs.remove(selected);
+                                }
                                 break;
                             case KeyEvent.VK_UP: // aumenta altura
-                                resizeFigure(selected, 1, 'y');
+                                if(selected != null){
+                                    resizeFigure(selected, 1, 'y');
+                                }
                                 break;
                             case KeyEvent.VK_DOWN: // diminui altura
-                                resizeFigure(selected,-1, 'y');
+                                if(selected != null){
+                                    resizeFigure(selected,-1, 'y');
+                                }
                                 break;
                             case KeyEvent.VK_LEFT: // diminui largura
-                                resizeFigure(selected,-1, 'x');
+                                if(selected != null){
+                                    resizeFigure(selected,-1, 'x');
+                                }
                                 break;
                             case KeyEvent.VK_RIGHT: // aumenta largura
-                                resizeFigure(selected,1, 'x');
+                                if(selected != null){
+                                    resizeFigure(selected,1, 'x');
+                                }
                                 break;
                             case KeyEvent.VK_Q: // mudar a cor de contorno
-                                changeColor('f', selected);
+                                if(selected != null){
+                                    changeColor('f', selected);
+                                }
                                 break;
                             case KeyEvent.VK_W: // mudar a cor de fundo
-                                changeColor('b', selected);
+                                if(selected != null){
+                                    changeColor('b', selected);
+                                }
                                 break;
                             case KeyEvent.VK_F: // mudar a cor de fundo da tela
                                 JColorChooser colorChooser = new JColorChooser();
@@ -93,12 +109,26 @@ class MainFrame extends JFrame {
                         {
                             case MouseEvent.BUTTON1: // seleciona a figura com o botão esquerdo 
                                 selected = null;
+                                bSelected = null;
                                 for (Figure fig: figs) {
                                     if(fig.clicked((int)prevPt.getX(), (int)prevPt.getY()))
                                     {
                                         selected = fig;
                                     }
                                 }
+
+                                for (Buttons b: buttons) {
+                                    if (b.clicked((int)prevPt.getX(), (int)prevPt.getY())){
+                                        bSelected = b;
+                                        buttonIndex = b.idx;
+                                    }
+                                }
+
+                                if (buttonIndex != -1 && bSelected == null){
+                                    createFigureWithButton(buttonIndex, mousePt, 50, 50);
+                                    buttonIndex = -1;
+                                }
+
                                 // troca a coordenada z(a ordem de desenho)
                                 if (selected != null){
                                     int index = figs.indexOf(selected);
@@ -145,6 +175,17 @@ class MainFrame extends JFrame {
         this.setSize(WIDTH, HEIGHT);
         this.setResizable(false);
         this.setVisible(true);
+        
+        // criação dos botões
+        Buttons RectButton = new Buttons(1, new Rect2D(Color.BLACK, Color.WHITE), 1);
+        Buttons EllipseButton = new Buttons(2, new Ellipse(Color.BLACK, Color.WHITE), 1);
+        Buttons PentagonButton = new Buttons(3, new Pentagon(Color.BLACK, Color.WHITE), 2);
+        Buttons TriangleButton = new Buttons(4, new Triangle(Color.BLACK, Color.WHITE),1);
+        buttons.add(RectButton);
+        buttons.add(EllipseButton);
+        buttons.add(PentagonButton);
+        buttons.add(TriangleButton);
+        buttonIndex = -1;
 
     }
 
@@ -156,6 +197,17 @@ class MainFrame extends JFrame {
 
         RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setRenderingHints(rh);
+
+
+        for (Buttons b: this.buttons)
+        {
+            if (b.equals(bSelected)){
+                b.paint(g, true);
+            }
+            else{
+                 b.paint(g, false);
+            }
+        }
 
         for (Figure fig: this.figs)
         {
@@ -187,6 +239,16 @@ class MainFrame extends JFrame {
                 break;
             default:
                 break;
+        }
+    }
+
+    private void createFigureWithButton(int idx, Point point, int w, int h){
+        switch(idx){
+            case 1: createFigure('r', point, w, h); break;
+            case 2: createFigure('e', point, w, h); break;
+            case 3: createFigure('p', point, w, h); break;
+            case 4: createFigure('t', point, w, h); break;
+            default: break;
         }
     }
 

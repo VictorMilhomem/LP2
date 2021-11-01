@@ -10,6 +10,11 @@ public class Ellipse extends Figure
         super(x, y, w, h, c, bkg);
     }
 
+    public Ellipse(Color c, Color bkg)
+    {
+        super(c, bkg);
+    }
+
     void print () {
         System.out.format("Elipse de tamanho (%d,%d) na posicao (%d,%d).\n",
                 this.w, this.h, this.x, this.y);

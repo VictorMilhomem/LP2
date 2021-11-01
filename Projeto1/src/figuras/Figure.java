@@ -1,10 +1,10 @@
 package figuras;
 
 import java.awt.*;
+import ivisible.IVisible;
 
 
-
-public abstract class Figure{
+public abstract class Figure implements IVisible{
     protected int x, y, h, w, id;
     protected Color c, bkg;
 
@@ -18,7 +18,30 @@ public abstract class Figure{
         this.bkg = bkg;
     }
 
-    public abstract void paint(Graphics g, boolean selected);
+    public Figure(Color c, Color bkg){
+        this.c = c;
+        this.bkg = bkg;
+    }
+
+    public void setX(int newX)
+    {
+        this.x = newX;
+    }
+
+    public void setY(int newY)
+    {
+        this.y = newY;
+    }
+
+    public void setWidth(int newWidth)
+    {
+        this.w = newWidth;
+    }
+
+    public void setHeight(int newHeight)
+    {
+        this.h = newHeight;
+    }
 
     // Foreground Color setter
     public void setForegroundColor(Color newColor)
