@@ -54,9 +54,7 @@ class MainFrame extends JFrame {
                                 createFigure('p', mousePt, w, h);
                                 break;
                             case KeyEvent.VK_DELETE:
-                                if(selected != null){
-                                    figs.remove(selected);
-                                }
+                                figs.remove(selected);
                                 break;
                             case KeyEvent.VK_UP: // aumenta altura
                                 if(selected != null){
