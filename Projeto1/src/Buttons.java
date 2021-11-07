@@ -8,7 +8,7 @@ public class Buttons implements IVisible {
     static int DIM = 30;
     static int PAD = 4;
 
-    public  int    idx;
+    private  int    idx;
     private Figure fig;
 
     public Buttons (int idx, Figure fig, int factor) {
@@ -34,6 +34,10 @@ public class Buttons implements IVisible {
         g2d.drawRect(SPC, SPC+this.idx*DIM, DIM, DIM);
 
         this.fig.paint(g, false);
+    }
+
+    public int getIdx() {
+        return this.idx;
     }
 
 }

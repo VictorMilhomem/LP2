@@ -118,7 +118,7 @@ class MainFrame extends JFrame {
                                 for (Buttons b: buttons) {
                                     if (b.clicked((int)prevPt.getX(), (int)prevPt.getY())){
                                         bSelected = b;
-                                        buttonIndex = b.idx;
+                                        buttonIndex = b.getIdx();
                                     }
                                 }
 
