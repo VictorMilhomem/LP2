@@ -18,7 +18,8 @@ public abstract class Figure implements IVisible{
         this.bkg = bkg;
     }
 
-    public Figure(Color c, Color bkg){
+    public Figure(Color c, Color bkg)
+    {
         this.c = c;
         this.bkg = bkg;
     }
@@ -31,6 +32,16 @@ public abstract class Figure implements IVisible{
     public void setY(int newY)
     {
         this.y = newY;
+    }
+
+    public int getX()
+    {
+        return this.x;
+    }
+
+    public int getY()
+    {
+        return this.y;
     }
 
     public void setWidth(int newWidth)

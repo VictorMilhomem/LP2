@@ -157,8 +157,9 @@ class MainFrame extends JFrame {
                     {
                         Graphics g = getGraphics();
                         Point currentPt = evt.getPoint();
-                        if (selected != null){
-                            selected.drag((int) (currentPt.getX()-prevPt.getX()), (int)(currentPt.getY()-prevPt.getY()));
+                        int aux = ((int)currentPt.getX() > 75) ?  (int)(currentPt.getX()-prevPt.getX()) : 0;
+                        if (selected != null ){
+                            selected.drag(aux, (int)(currentPt.getY()-prevPt.getY()));
                             prevPt = currentPt;
                             repaint();
                             g.dispose();
@@ -280,7 +281,6 @@ class MainFrame extends JFrame {
     }
 
 }
-
 
 
 
