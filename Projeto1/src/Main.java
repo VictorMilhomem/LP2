@@ -15,6 +15,7 @@ public class Main {
 class MainFrame extends JFrame {
     static final int WIDTH = 720;
     static final int HEIGHT = 640;
+    private static final int MINXDRAWPOS = 85;
     private ArrayList<Figure> figs = new ArrayList<>();
     private Figure selected = null;
     private Buttons bSelected = null;
@@ -23,6 +24,7 @@ class MainFrame extends JFrame {
     private Color BackgroundColor = Color.white;
     private Point mousePt;
     private ArrayList<Buttons> buttons = new ArrayList<>();
+
 
     public MainFrame () {
         this.addWindowListener (
@@ -122,7 +124,7 @@ class MainFrame extends JFrame {
                                     }
                                 }
 
-                                if (buttonIndex != -1 && bSelected == null){
+                                if (buttonIndex != -1 && bSelected == null && (int)mousePt.getX() > MINXDRAWPOS){
                                     createFigureWithButton(buttonIndex, mousePt, 50, 50);
                                     buttonIndex = -1;
                                 }
@@ -157,7 +159,7 @@ class MainFrame extends JFrame {
                     {
                         Graphics g = getGraphics();
                         Point currentPt = evt.getPoint();
-                        int aux = ((int)currentPt.getX() > 75) ?  (int)(currentPt.getX()-prevPt.getX()) : 0;
+                        int aux = ((int)currentPt.getX() > MINXDRAWPOS) ?  (int)(currentPt.getX()-prevPt.getX()) : 0;
                         if (selected != null ){
                             selected.drag(aux, (int)(currentPt.getY()-prevPt.getY()));
                             prevPt = currentPt;
