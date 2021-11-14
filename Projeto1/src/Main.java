@@ -5,6 +5,11 @@ import java.util.Collections;
 import java.util.Random;
 import javax.swing.*;
 import figuras.*;
+import java.io.*;
+import java.awt.image.*;
+import javax.imageio.*;
+
+
 
 public class Main {
     public static void main (String[] args) {
@@ -24,12 +29,33 @@ class MainFrame extends JFrame {
     private Color BackgroundColor = Color.white;
     private Point mousePt;
     private ArrayList<Buttons> buttons = new ArrayList<>();
-
+    private ArrayList<Figure> storedSelected;
 
     public MainFrame () {
+    
+        try{
+            FileInputStream fp = new FileInputStream("proj.bin");
+            ObjectInputStream obj = new ObjectInputStream(fp);
+            this.figs = (ArrayList<Figure>) obj.readObject();
+            obj.close();
+
+        }catch(Exception e){
+            System.out.println("Error");
+        }
+
         this.addWindowListener (
                 new WindowAdapter() {
                     public void windowClosing (WindowEvent e) {
+                        try{
+                            FileOutputStream fp = new FileOutputStream("proj.bin");
+                            ObjectOutputStream obj = new ObjectOutputStream(fp);
+                            obj.writeObject(figs);
+                            obj.flush();
+                            obj.close(); 
+
+                        }catch (Exception ex){
+
+                        }
                         System.exit(0);
                     }
                 }
@@ -107,13 +133,14 @@ class MainFrame extends JFrame {
 
                         switch(evt.getButton())
                         {
-                            case MouseEvent.BUTTON1: // seleciona a figura com o botão esquerdo 
+                            case MouseEvent.BUTTON1: // seleciona a figura com o botão esquerdo
                                 selected = null;
                                 bSelected = null;
                                 for (Figure fig: figs) {
                                     if(fig.clicked((int)prevPt.getX(), (int)prevPt.getY()))
                                     {
                                         selected = fig;
+                                        storedSelected.add(selected);
                                     }
                                 }
 
@@ -124,16 +151,20 @@ class MainFrame extends JFrame {
                                     }
                                 }
 
+                                // cria as figuras com os botões
                                 if (buttonIndex != -1 && bSelected == null && (int)mousePt.getX() > MINXDRAWPOS){
-                                    createFigureWithButton(buttonIndex, mousePt, 50, 50);
+                                    buttonsFunctionality(buttonIndex); // cria as figuras
                                     buttonIndex = -1;
                                 }
+
+
 
                                 // troca a coordenada z(a ordem de desenho)
                                 if (selected != null){
                                     int index = figs.indexOf(selected);
                                     int lastIndex = figs.size() - 1;
                                     Collections.swap(figs, index, lastIndex);
+
                                 }
                                 break;
                             case MouseEvent.BUTTON3:
@@ -176,16 +207,18 @@ class MainFrame extends JFrame {
         this.setSize(WIDTH, HEIGHT);
         this.setResizable(false);
         this.setVisible(true);
-        
+        storedSelected = new ArrayList<>();
         // criação dos botões
-        Buttons RectButton = new Buttons(1, new Rect2D(Color.BLACK, Color.WHITE), 1);
-        Buttons EllipseButton = new Buttons(2, new Ellipse(Color.BLACK, Color.WHITE), 1);
-        Buttons PentagonButton = new Buttons(3, new Pentagon(Color.BLACK, Color.WHITE), 2);
-        Buttons TriangleButton = new Buttons(4, new Triangle(Color.BLACK, Color.WHITE),1);
+        Buttons RectButton = new Buttons(1, new Rect2D(Color.BLACK, Color.WHITE), 1.0f);
+        Buttons EllipseButton = new Buttons(2, new Ellipse(Color.BLACK, Color.WHITE), 1.0f);
+        Buttons PentagonButton = new Buttons(3, new Pentagon(Color.BLACK, Color.WHITE),2.3f);
+        Buttons TriangleButton = new Buttons(4, new Triangle(Color.BLACK, Color.WHITE),1.0f);
+        Buttons SaveButton = new Buttons(5, new Text("Deletar", 9.0f, Color.BLACK, Color.BLACK),3.0f);
         buttons.add(RectButton);
         buttons.add(EllipseButton);
         buttons.add(PentagonButton);
         buttons.add(TriangleButton);
+        buttons.add(SaveButton);
         buttonIndex = -1;
 
     }
@@ -221,34 +254,39 @@ class MainFrame extends JFrame {
         }
     }
 
-    private void createFigure(char type, Point point, int w, int h){
-        switch (type){
-            case 'r':
-                Rect2D r = new Rect2D((int)point.getX(),(int)point.getY(), w,h, Color.BLACK,Color.WHITE);
-                figs.add(r); break;
-            case 't':
-                Triangle t = new Triangle((int)point.getX(), (int)point.getY(), w, h, Color.BLACK, Color.WHITE);
-                figs.add(t);
-                break;
-            case 'e':
-                Ellipse e = new Ellipse((int)point.getX(), (int)point.getY(), w, h, Color.BLACK, Color.WHITE);
-                figs.add(e);
-                break;
-            case 'p':
-                Pentagon p = new Pentagon((int)point.getX(), (int)point.getY(), w, h, Color.BLACK, Color.WHITE);
-                figs.add(p);
-                break;
-            default:
-                break;
+    private void createFigure(char type, Point point, int w, int h){  
+        // checa se a posição do mouse está na posição onde os botões estão colocados
+        if (point.getX() > MINXDRAWPOS){
+
+            switch (type){
+                case 'r':
+                    Rect2D r = new Rect2D((int)point.getX(),(int)point.getY(), w,h, Color.BLACK,Color.WHITE);
+                    figs.add(r); break;
+                case 't':
+                    Triangle t = new Triangle((int)point.getX(), (int)point.getY(), w, h, Color.BLACK, Color.WHITE);
+                    figs.add(t);
+                    break;
+                case 'e':
+                    Ellipse e = new Ellipse((int)point.getX(), (int)point.getY(), w, h, Color.BLACK, Color.WHITE);
+                    figs.add(e);
+                    break;
+                case 'p':
+                    Pentagon p = new Pentagon((int)point.getX(), (int)point.getY(), w, h, Color.BLACK, Color.WHITE);
+                    figs.add(p);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
-    private void createFigureWithButton(int idx, Point point, int w, int h){
+    private void buttonsFunctionality(int idx){
         switch(idx){
-            case 1: createFigure('r', point, w, h); break;
-            case 2: createFigure('e', point, w, h); break;
-            case 3: createFigure('p', point, w, h); break;
-            case 4: createFigure('t', point, w, h); break;
+            case 1: createFigure('r', mousePt, 50, 50); break;
+            case 2: createFigure('e', mousePt, 50, 50); break;
+            case 3: createFigure('p', mousePt, 50, 50); break;
+            case 4: createFigure('t', mousePt, 50, 50); break;
+               
             default: break;
         }
     }

@@ -5,17 +5,17 @@ import java.awt.*;
 public class Buttons implements IVisible {
 
     private static int SPC = 10;
-    private static int DIM = 30;
+    private static int DIM = 35;
     private static int PAD = 4;
 
     private  int    idx;
     private Figure fig;
 
-    public Buttons (int idx, Figure fig, int factor) {
+    public Buttons (int idx, Figure fig, float factor) {
         this.idx = idx;
         this.fig = fig;
         this.fig.setX(PAD+SPC);
-        this.fig.setY(PAD+factor*SPC + idx*DIM);
+        this.fig.setY(PAD+(int)(factor*SPC) + idx*DIM);
         this.fig.setWidth(DIM-PAD*2);
         this.fig.setHeight(DIM-PAD*2);
     }

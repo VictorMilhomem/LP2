@@ -2,9 +2,9 @@ package figuras;
 
 import java.awt.*;
 import ivisible.IVisible;
+import java.io.Serializable;
 
-
-public abstract class Figure implements IVisible{
+public abstract class Figure implements IVisible, Serializable{
     protected int x, y, h, w, id;
     protected Color c, bkg;
 
