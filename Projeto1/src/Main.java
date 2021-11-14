@@ -29,7 +29,6 @@ class MainFrame extends JFrame {
     private Color BackgroundColor = Color.white;
     private Point mousePt;
     private ArrayList<Buttons> buttons = new ArrayList<>();
-    private ArrayList<Figure> storedSelected;
 
     public MainFrame () {
     
@@ -140,7 +139,6 @@ class MainFrame extends JFrame {
                                     if(fig.clicked((int)prevPt.getX(), (int)prevPt.getY()))
                                     {
                                         selected = fig;
-                                        storedSelected.add(selected);
                                     }
                                 }
 
@@ -207,18 +205,16 @@ class MainFrame extends JFrame {
         this.setSize(WIDTH, HEIGHT);
         this.setResizable(false);
         this.setVisible(true);
-        storedSelected = new ArrayList<>();
+
         // criação dos botões
         Buttons RectButton = new Buttons(1, new Rect2D(Color.BLACK, Color.WHITE), 1.0f);
         Buttons EllipseButton = new Buttons(2, new Ellipse(Color.BLACK, Color.WHITE), 1.0f);
         Buttons PentagonButton = new Buttons(3, new Pentagon(Color.BLACK, Color.WHITE),2.3f);
         Buttons TriangleButton = new Buttons(4, new Triangle(Color.BLACK, Color.WHITE),1.0f);
-        Buttons SaveButton = new Buttons(5, new Text("Deletar", 9.0f, Color.BLACK, Color.BLACK),3.0f);
         buttons.add(RectButton);
         buttons.add(EllipseButton);
         buttons.add(PentagonButton);
         buttons.add(TriangleButton);
-        buttons.add(SaveButton);
         buttonIndex = -1;
 
     }
