@@ -1,6 +1,7 @@
 import java.util.*;
 
-public class LinkedStack extends LinkedList{
+public class LinkedStack implements IStackable
+{
 
     private LinkedList<Integer> list;
 
@@ -13,20 +14,17 @@ public class LinkedStack extends LinkedList{
     }
 
     public void push(int v){
-        if (this.list == null){
+        if (this.list.size() == 0){
             this.list.addFirst(v);
         }else{
-            this.list.add(v);
+            this.list.addLast(v);
         }
     }
 
     public int pop(){
-        int value;
-        if(this.list != null){
-            value = this.list.pop();
-        }else{
-            value = null;
+        if(this.list.size() > 1){
+            return this.list.removeLast();
         }
-        return value;
+        return -1;
     }
 }
